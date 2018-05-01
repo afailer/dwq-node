@@ -19,17 +19,11 @@ app.set("port", port);
 /**
  * Create HTTP server.
  */
-var privateKey = fs.readFileSync(
-    path.join(__dirname, "/root/dwq/nginxSSL/2_www.tjwq666.com.key"),
-    "utf8"
-);
-var certificate = fs.readFileSync(
-    path.join(__dirname, "/root/dwq/nginxSSL/1_www.tjwq666.com_bundle.crt"),
-    "utf8"
-);
-var credentials = { key: privateKey, cert: certificate };
-https.createServer(credentials, app).listen(443);
-var server = http.createServer(app);
+const options = {
+    key: fs.readFileSync("/root/dwq/nginxSSL/2_www.tjwq666.com.key"),
+    cert: fs.readFileSync("/root/dwq/nginxSSL/1_www.tjwq666.com_bundle.crt")
+};
+var server = https.createServer(options, app).listen(443);
 
 /**
  * Listen on provided port, on all network interfaces.
