@@ -20,7 +20,7 @@ const options = {
     key: fs.readFileSync("/root/dwq/nginxSSL/2_www.tjwq666.com.key"),
     cert: fs.readFileSync("/root/dwq/nginxSSL/1_www.tjwq666.com_bundle.crt")
 };
-var server = http.createServer(options, app);
+var server = https.createServer(options, app);
 
 /**
  * Listen on provided port, on all network interfaces.
