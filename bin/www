@@ -15,7 +15,7 @@ var fs = require("fs");
  */
 
 var httpsPort = normalizePort(process.env.PORT || "3000");
-var httpPort = normalizePort(process.env.PORT || "8181");
+var httpPort = normalizePort(process.env.PORT || "8888");
 app.set("port", httpPort);
 const options = {
     key: fs.readFileSync("/root/dwq/nginxSSL/2_www.tjwq666.com.key"),
