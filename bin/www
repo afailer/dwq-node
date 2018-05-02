@@ -14,7 +14,7 @@ var fs = require("fs");
  * Get port from environment and store in Express.
  */
 
-var httpsPort = normalizePort("443");
+var httpsPort = normalizePort("3443");
 var httpPort = normalizePort(process.env.PORT || "3000");
 app.set("port", httpPort);
 
@@ -83,7 +83,7 @@ function onHttpsError(error) {
         throw error;
     }
 
-    var bind = "443";
+    var bind = "3443";
 
     // handle specific listen errors with friendly messages
     switch (error.code) {
