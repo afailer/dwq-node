@@ -29,7 +29,7 @@ const options = {
 };
 var httpsServer = https.createServer(options, app);
 httpsServer.listen(httpsPort);
-httpsServer.on("error", onError);
+httpsServer.on("error", onHttpsError);
 httpsServer.on("listening", httpsOnListening);
 
 /**
@@ -78,6 +78,27 @@ function onError(error) {
     }
 }
 
+function onHttpsError(error) {
+    if (error.syscall !== "listen") {
+        throw error;
+    }
+
+    var bind = "443";
+
+    // handle specific listen errors with friendly messages
+    switch (error.code) {
+        case "EACCES":
+            console.error(bind + " requires elevated privileges");
+            process.exit(1);
+            break;
+        case "EADDRINUSE":
+            console.error(bind + " is already in use");
+            process.exit(1);
+            break;
+        default:
+            throw error;
+    }
+}
 /**
  * Event listener for HTTP server "listening" event.
  */
