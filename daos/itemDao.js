@@ -19,7 +19,8 @@ module.exports = {
         shortMsg,
         price,
         detail,
-        weight
+        weight,
+        response
     ) => {
         var item = new Item({
             typeId: typeId,
@@ -31,57 +32,48 @@ module.exports = {
             detail: detail,
             weight: weight
         });
-        item.save(err => {
-            cb(err);
-        });
-    },
-    getPosList: (params, cb) => {
-        Position.find(params)
-            .then(result => {
-                cb(result);
+        item
+            .save(result => {
+                response(result);
             })
-            .catch(() => {
-                cb("err");
+            .catch(res => {
+                response("err");
             });
     },
-    getPosListByPage: (page, size, cb) => {
-        Position.find({})
+    getItemListByPage: (page, size, response) => {
+        Item.find({})
             .limit(parseInt(size, 10))
             .skip((parseInt(page, 10) - 1) * parseInt(size, 10))
             .then(result => {
-                cb(result);
+                response(result);
             })
             .catch(res => {
-                cb("err");
+                response("err");
             });
     },
-    deletePos: (dataId, cb) => {
-        Position.findByIdAndRemove(dataId, err => {
-            cb(err);
+    deleteItem: (dataId, response) => {
+        Item.findByIdAndRemove(dataId, err => {
+            response(err);
         }).catch(res => {
-            cb("err");
+            response("err");
         });
     },
-    getPosById: (_id, cb) => {
-        console.log("---Dao---getPosById-------" + _id);
-        Position.findById(_id)
+    getItemById: (_id, response) => {
+        Item.findById(_id)
             .then(result => {
-                cb(result);
+                response(result);
             })
             .catch(res => {
-                cb("err");
+                response("err");
             });
     },
-    updatePos: (_id, params, cb) => {
-        console.log("----dao--updatePos-------" + _id);
-        Position.findByIdAndUpdate(_id, params)
+    updateItem: (_id, params, response) => {
+        Item.findByIdAndUpdate(_id, params)
             .then(result => {
-                console.log(result);
-                cb(result);
+                response(result);
             })
             .catch(err => {
-                console.log(err);
-                cb("err");
+                response("err");
             });
     }
 };
