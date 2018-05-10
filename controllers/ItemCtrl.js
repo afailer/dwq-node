@@ -1,4 +1,4 @@
-const posDao = require("../daos/itemDao.js");
+const ItemDao = require("../daos/itemDao.js");
 module.exports = {
     addItem: (req, res) => {
         const {
@@ -13,7 +13,7 @@ module.exports = {
         } = req.body;
         const fileName = req.file ? req.file.filename : "";
 
-        posDao.addItem(
+        ItemDao.addItem(
             typeId,
             ServerLevel,
             title,
@@ -33,46 +33,35 @@ module.exports = {
             }
         );
     },
-    getPosList: (req, res) => {
+    getItemListByPage: (req, res) => {
         let { page, size } = req.body;
         page = parseInt(page);
         size = parseInt(size);
-        let totalNum = 0;
-        posDao.getPosList({}, result => {
+        let totalNum = ItemDao.getItemCount();
+        let pageTotalNum = Math.ceil(totalNum / size);
+        ItemDao.getItemList(page, size, result => {
             if (result && result != "err") {
-                totalNum = Math.ceil(result.length / size);
-                posDao.getPosListByPage(page, size, result => {
-                    if (result && result !== "err") {
-                        res.json({
-                            messageCode: 1,
-                            datas: {
-                                totalCount: totalNum,
-                                posList: result
-                            }
-                        });
-                    }
-                });
-            }
-        });
-    },
-    deletePos: function(req, res) {
-        const { _id } = req.query;
-        console.log(_id);
-        posDao.deletePos(_id, result => {
-            if (result != "err") {
                 res.json({
                     messageCode: 1,
                     datas: {
-                        isDelete: true
+                        totalCount: totalNum,
+                        itemList: result
                     }
                 });
             }
         });
     },
-    getPosById: function(req, res) {
-        console.log("---------getPosById---------");
+    deleteItem: function(req, res) {
+        const { _id } = req.query;
+        ItemDao.deleteItem(_id, result => {
+            if (result != "err") {
+                res.json({ messageCode: 1, datas: { isDelete: true } });
+            }
+        });
+    },
+    getItemById: function(req, res) {
         const { _id } = req.body;
-        posDao.getPosById(_id, result => {
+        ItemDao.getItemById(_id, result => {
             if (result != "err") {
                 res.json({
                     messageCode: 1,
@@ -83,19 +72,32 @@ module.exports = {
             }
         });
     },
-    updatePos: (req, res) => {
-        console.log("----UPDATE-----");
-        const { _id, company, positionName, salary, workPlace } = req.body;
+    updateItem: (req, res) => {
+        const {
+            _id,
+            typeId,
+            ServerLevel,
+            title,
+            icon,
+            shortMsg,
+            price,
+            detail,
+            weight
+        } = req.body;
         var params = {
-            company,
-            positionName,
-            salary,
-            workPlace
+            typeId,
+            ServerLevel,
+            title,
+            icon,
+            shortMsg,
+            price,
+            detail,
+            weight
         };
-        var fileName = req.file ? req.file.filename : "";
-        if (fileName != "") {
-            params.fileName = fileName;
-        }
+        // var fileName = req.file ? req.file.filename : "";
+        // if (fileName != "") {
+        //     params.fileName = fileName;
+        // }
 
         posDao.updatePos(_id, params, result => {
             if (result != "err") {

@@ -1,0 +1,11 @@
+var express = require("express");
+var router = express.Router();
+var itemCtr = require("../controllers/ItemCtrl.js");
+//const upload = require("../utils/uploads.js");
+//router.post("/addPos", upload.single("logo"), posCtr.addPos);
+router.post("/addItem", itemCtr.addItem);
+router.post("/deleteItem", itemCtr.deleteItem);
+router.post("/getItemById", itemCtr.getItemById);
+router.post("/updateItem", itemCtr.updateItem);
+router.post("/getItemList", itemCtr.getItemListByPage);
+module.exports = router;

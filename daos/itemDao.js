@@ -40,6 +40,9 @@ module.exports = {
                 response("err");
             });
     },
+    getItemCount: response => {
+        response(Item.find().count());
+    },
     getItemListByPage: (page, size, response) => {
         Item.find({})
             .limit(parseInt(size, 10))
