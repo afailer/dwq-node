@@ -34,9 +34,11 @@ module.exports = {
         });
         item
             .save(result => {
+                console.log(response + "----------sucess");
                 response(result);
             })
             .catch(res => {
+                console.log("======");
                 response("err");
             });
     },

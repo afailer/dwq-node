@@ -1,5 +1,9 @@
 const ItemDao = require("../daos/itemDao.js");
 module.exports = {
+    test: (req, res) => {
+        console.log("test");
+        res.json({ messageCode: 1, datas: { inserted: "ok" } });
+    },
     addItem: (req, res) => {
         const {
             typeId,
@@ -11,8 +15,8 @@ module.exports = {
             detail,
             weight
         } = req.body;
-        const fileName = req.file ? req.file.filename : "";
-
+        //const fileName = req.file ? req.file.filename : "";
+        console.log(shortMsg);
         ItemDao.addItem(
             typeId,
             ServerLevel,
@@ -23,7 +27,7 @@ module.exports = {
             detail,
             weight,
             result => {
-                console.log(result);
+                console.log(result + "--------");
                 res.json({
                     messageCode: 1,
                     datas: {

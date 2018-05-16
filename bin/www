@@ -23,15 +23,6 @@ httpServer.listen(httpPort);
 httpServer.on("error", onError);
 httpServer.on("listening", onListening);
 
-const options = {
-    key: fs.readFileSync("/root/dwq/nginxSSL/2_www.tjwq666.com.key"),
-    cert: fs.readFileSync("/root/dwq/nginxSSL/1_www.tjwq666.com_bundle.crt")
-};
-var httpsServer = https.createServer(options, app);
-httpsServer.listen(httpsPort);
-httpsServer.on("error", onHttpsError);
-httpsServer.on("listening", httpsOnListening);
-
 /**
  * Normalize a port into a number, string, or false.
  */

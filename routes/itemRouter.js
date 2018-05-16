@@ -3,6 +3,7 @@ var router = express.Router();
 var itemCtr = require("../controllers/ItemCtrl.js");
 //const upload = require("../utils/uploads.js");
 //router.post("/addPos", upload.single("logo"), posCtr.addPos);
+router.get("/test", itemCtr.test);
 router.post("/addItem", itemCtr.addItem);
 router.post("/deleteItem", itemCtr.deleteItem);
 router.post("/getItemById", itemCtr.getItemById);
