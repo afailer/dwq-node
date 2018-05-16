@@ -32,20 +32,15 @@ module.exports = {
             detail: detail,
             weight: weight
         });
-        item
-            .save(result => {
-                console.log(response + "----------sucess");
-                response(result);
-            })
-            .catch(res => {
-                console.log("======");
-                response("err");
-            });
+        item.save(err => {
+            response(err);
+        });
     },
     getItemCount: response => {
         response(Item.find().count());
     },
     getItemListByPage: (page, size, response) => {
+        console.log("--Dao-----getItemListByPage----------");
         Item.find({})
             .limit(parseInt(size, 10))
             .skip((parseInt(page, 10) - 1) * parseInt(size, 10))

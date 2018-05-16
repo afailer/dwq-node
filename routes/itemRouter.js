@@ -8,5 +8,5 @@ router.post("/addItem", itemCtr.addItem);
 router.post("/deleteItem", itemCtr.deleteItem);
 router.post("/getItemById", itemCtr.getItemById);
 router.post("/updateItem", itemCtr.updateItem);
-router.post("/getItemList", itemCtr.getItemListByPage);
+router.post("/getItemListByPage", itemCtr.getItemListByPage);
 module.exports = router;

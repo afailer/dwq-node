@@ -16,7 +16,6 @@ module.exports = {
             weight
         } = req.body;
         //const fileName = req.file ? req.file.filename : "";
-        console.log(shortMsg);
         ItemDao.addItem(
             typeId,
             ServerLevel,
@@ -27,11 +26,10 @@ module.exports = {
             detail,
             weight,
             result => {
-                console.log(result + "--------");
                 res.json({
                     messageCode: 1,
                     datas: {
-                        inserted: !result
+                        inserted: true
                     }
                 });
             }
@@ -39,16 +37,17 @@ module.exports = {
     },
     getItemListByPage: (req, res) => {
         let { page, size } = req.body;
+        console.log(page + " " + size);
         page = parseInt(page);
         size = parseInt(size);
-        let totalNum = ItemDao.getItemCount();
-        let pageTotalNum = Math.ceil(totalNum / size);
-        ItemDao.getItemList(page, size, result => {
+
+        console.log(totalNum + " ======= " + pageTotalNum);
+        ItemDao.getItemListByPage(page, size, result => {
+            console.log(result);
             if (result && result != "err") {
                 res.json({
                     messageCode: 1,
                     datas: {
-                        totalCount: totalNum,
                         itemList: result
                     }
                 });
