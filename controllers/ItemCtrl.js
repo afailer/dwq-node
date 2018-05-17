@@ -40,8 +40,6 @@ module.exports = {
         console.log(page + " " + size);
         page = parseInt(page);
         size = parseInt(size);
-
-        console.log(totalNum + " ======= " + pageTotalNum);
         ItemDao.getItemListByPage(page, size, result => {
             console.log(result);
             if (result && result != "err") {

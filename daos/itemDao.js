@@ -42,8 +42,8 @@ module.exports = {
     getItemListByPage: (page, size, response) => {
         console.log("--Dao-----getItemListByPage----------");
         Item.find({})
-            .limit(parseInt(size, 10))
-            .skip((parseInt(page, 10) - 1) * parseInt(size, 10))
+            .skip((parseInt(page) - 1) * parseInt(size))
+            .limit(parseInt(size))
             .then(result => {
                 response(result);
             })
