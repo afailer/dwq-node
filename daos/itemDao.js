@@ -52,10 +52,11 @@ module.exports = {
             });
     },
     deleteItem: (dataId, response) => {
-        Item.findByIdAndRemove(dataId, err => {
+        Item.findByIdAndRemove(dataId, res => {
+            console.log(res);
+            response(res);
+        }).catch(err => {
             response(err);
-        }).catch(res => {
-            response("err");
         });
     },
     getItemById: (_id, response) => {

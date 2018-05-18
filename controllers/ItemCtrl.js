@@ -53,11 +53,12 @@ module.exports = {
         });
     },
     deleteItem: function(req, res) {
-        const { _id } = req.query;
+        const { _id } = req.body;
+        console.log(_id);
         ItemDao.deleteItem(_id, result => {
             if (result != "err") {
                 res.json({ messageCode: 1, datas: { isDelete: true } });
-            }
+            } else {}
         });
     },
     getItemById: function(req, res) {
@@ -100,18 +101,11 @@ module.exports = {
         //     params.fileName = fileName;
         // }
 
-        posDao.updatePos(_id, params, result => {
+        ItemDao.updateItem(_id, params, result => {
             if (result != "err") {
-                res.json({
-                    messageCode: 1,
-                    datas: {
-                        update: true
-                    }
-                });
+                res.json({ messageCode: 1, datas: { update: true } });
             } else {
-                res.json({
-                    messageCode: 2
-                });
+                res.json({ messageCode: 2 });
             }
         });
     }
